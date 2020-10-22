@@ -4,9 +4,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.helloworld.FragmentBottom;
-import com.example.helloworld.FragmentTop;
-
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private int numOfTabs;
@@ -19,9 +16,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FragmentTop();
+                return new FragmentLeft();
             case 1:
-                return new FragmentBottom();
+                return new FragmentRight();
             default:
                 return null;
         }

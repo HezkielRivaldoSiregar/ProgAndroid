@@ -36,4 +36,13 @@
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="match_parent"/>
+
+    <Switch
+        android:text="WIFI"
+        android:id="@+id/wifiswi"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
