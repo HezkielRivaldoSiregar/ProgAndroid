@@ -1,6 +1,9 @@
 package com.example.helloworld;
 
 import android.app.ActionBar;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.IntentFilter;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -12,8 +15,13 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -29,19 +37,28 @@ public class HomeActivity extends AppCompatActivity {
     private Switch sw;
     private WifiManager wm;
 
+    private Button btnStartJob;
+    private Button btnCancelJob;
+
     private static final String TAG = HomeActivity.class.getSimpleName();
 
     private FrameLayout fragmentHolder;
+
+    public HomeActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        TabLayout tabLayout = findViewById(R.id.tabBar);
-        TabItem fragmentTop = findViewById(R.id.fragmentTop);
-        TabItem fragmentBottom = findViewById(R.id.fragmentBottom);
-        final ViewPager viewPager = findViewById(R.id.viewPager);
+        btnStartJob = findViewById(R.id.startJob);
+        btnStartJob = findViewById(R.id.cancelJob);
 
+        TabLayout tabLayout = findViewById(R.id.tabBar);
+        TabItem fragmentTop = findViewById(R.id.fragmentLeft);
+        TabItem fragmentBottom = findViewById(R.id.fragmentRight);
+        final ViewPager viewPager = findViewById(R.id.viewPager);
 
         final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
@@ -69,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        sw = findViewById(R.id.wifiswi);
+        sw = findViewById(R.id.wifi_switch);
         BroadcastRec();
     }
     protected void onStart() {
@@ -151,5 +168,30 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void scheduleJob(View view){
+        ComponentName componentName = new ComponentName(getApplicationContext(), MyJobService.class);
+        JobInfo info = new JobInfo.Builder(123,componentName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+                .setPersisted(true)
+                .setPeriodic(15 * 60 * 1000) //dilakukan setiap 15 menit
+                .build();
+
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        int resultCode = scheduler.schedule(info);
+        if(resultCode == JobScheduler.RESULT_SUCCESS){
+            Log.i(TAG, "scheduleJob: Job Scheduled");
+        }else{
+            Log.i(TAG, "scheduleJob: Job Scheduling Failed");
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void cancelJob(View view){
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        scheduler.cancel(123);
+        Log.i(TAG, "cancelJob: Job Cancel Job");
     }
 }
