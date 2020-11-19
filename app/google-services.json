@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "16003616444",
+    "firebase_url": "https://hezkielandroapp1.firebaseio.com",
+    "project_id": "hezkielandroapp1",
+    "storage_bucket": "hezkielandroapp1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16003616444:android:a1e9c622c04a994296cab9",
+        "android_client_info": {
+          "package_name": "com.example.helloworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16003616444-76a25ccrhjs4vff25jrompa9h715rrm6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.helloworld",
+            "certificate_hash": "6e33c485d46f1dca5a0a4f47235c4db65a070c8b"
+          }
+        },
+        {
+          "client_id": "16003616444-pe5gp242n5r50ka1i7h1v20ctsgei8et.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdBqgov9BgyUBHjHtBUlq4NrN-Edv3U7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16003616444-pe5gp242n5r50ka1i7h1v20ctsgei8et.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
